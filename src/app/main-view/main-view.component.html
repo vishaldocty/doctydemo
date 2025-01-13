@@ -1,0 +1,52 @@
+<h1 style="text-align: center">Join call</h1>
+@if(!isVideoCallStarting){
+<form [formGroup]="userForm" class="form-container" (submit)="submitUserForm()">
+  <!-- Token Field -->
+  <div class="form-group">
+    <label for="token">Token:</label>
+    <input
+      id="token"
+      type="text"
+      formControlName="token"
+      class="form-control"
+    />
+    @if (userForm.get('token')?.invalid && userForm.get('token')?.touched) {
+    <div>
+      <small style="color: red">* Token is required.</small>
+    </div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="channel">Channel:</label>
+    <input
+      id="channel"
+      type="text"
+      formControlName="channel"
+      class="form-control"
+    />
+    @if (userForm.get('channel')?.invalid && userForm.get('channel')?.touched) {
+    <div>
+      <small style="color: red">* Channel is required.</small>
+    </div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="uid">User ID:</label>
+    <input id="uid" type="text" formControlName="uid" class="form-control" />
+  </div>
+
+  <div>
+    <button type="submit" [disabled]="userForm.invalid" class="submit-btn">
+      Submit
+    </button>
+  </div>
+</form>
+}@else{
+<div class="stream-container">
+  <app-local-stream [uid]="userId"></app-local-stream>
+  <app-remote-stream></app-remote-stream>
+</div>
+
+}
